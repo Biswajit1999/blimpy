@@ -6,6 +6,19 @@ import hdf5plugin
 from blimpy import utils
 
 
+def _bitshuffle_options():
+    """Return Bitshuffle compression settings across hdf5plugin versions.
+
+    hdf5plugin 4+ deprecates ``lz4=True`` in favour of ``cname='lz4'``,
+    while older releases do not accept ``cname``. Prefer the current API and
+    fall back for installations that still use the legacy signature.
+    """
+    try:
+        return hdf5plugin.Bitshuffle(nelems=0, cname='lz4')
+    except TypeError:
+        return hdf5plugin.Bitshuffle(nelems=0, lz4=True)
+
+
 def write_to_hdf5(wf, filename_out, f_scrunch=None, *args, **kwargs):
     """ Copy the header and the selected data matrix subset from the input file to the output HDF5 file.
         Check the heavy flag to decide how to write the file - light or heavy.
@@ -68,8 +81,9 @@ def __write_to_hdf5_heavy(wf, filename_out, f_scrunch=None, *args, **kwargs):
             h5.attrs['CLASS'] = 'FILTERBANK'
             h5.attrs['VERSION'] = '1.0'
     
-            bs_compression = hdf5plugin.Bitshuffle(nelems=0, lz4=True)['compression']
-            bs_compression_opts = hdf5plugin.Bitshuffle(nelems=0, lz4=True)['compression_opts']
+            bs_options = _bitshuffle_options()
+            bs_compression = bs_options['compression']
+            bs_compression_opts = bs_options['compression_opts']
     
             dout_shape     = list(wf.selection_shape)    # Make sure not a tuple
             dout_chunk_dim = list(chunk_dim)
@@ -211,8 +225,9 @@ def __write_to_hdf5_light(wf, filename_out, f_scrunch=None, *args, **kwargs):
         h5.attrs['CLASS']   = 'FILTERBANK'
         h5.attrs['VERSION'] = '1.0'
 
-        bs_compression = hdf5plugin.Bitshuffle(nelems=0, lz4=True)['compression']
-        bs_compression_opts = hdf5plugin.Bitshuffle(nelems=0, lz4=True)['compression_opts']
+        bs_options = _bitshuffle_options()
+        bs_compression = bs_options['compression']
+        bs_compression_opts = bs_options['compression_opts']
 
         # Frequency scrunching?
         if f_scrunch is None:
