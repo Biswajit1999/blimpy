@@ -14,7 +14,7 @@ as used in the [Breakthrough Listen](https://seti.berkeley.edu) search for intel
 ### Installation
 
 #### System Dependencies
-Sometimes the `pip` installation can fail if a system dependency is not installed. To fix this, make sure you have `curl` and install the required system dependencies with the command bellow:
+Sometimes the `pip` installation can fail if a system dependency is not installed. To fix this, make sure you have `curl` and install the required system dependencies with the command below:
 
 ##### Debian/Ubuntu
 ```
@@ -29,7 +29,7 @@ The latest release can be installed via pip directly from this repository:
 python3 -m pip install -U git+https://github.com/UCBerkeleySETI/blimpy
 ```
 
-Or, the latest version of the development code can be installed from the github [repo](https://github.com/UCBerkeleySETI/blimpy) and then run `python setup.py install` or `pip install .` (with sudo if required), or by using the following terminal command:
+Or, the latest version of the development code can be installed from the GitHub [repository](https://github.com/UCBerkeleySETI/blimpy) and then run `python setup.py install` or `pip install .` (with sudo if required), or by using the following terminal command:
 
 ```
 python3 -m pip install -U https://github.com/UCBerkeleySETI/blimpy/tarball/master
@@ -77,7 +77,7 @@ Use the `-h` flag to any of the above command line utilities to display their av
 
 The `blimpy.Waterfall`  provides a Python API for interacting with filterbank data. It supports all BL filterbank data products; see this [example Jupyter notebook](https://github.com/UCBerkeleySETI/blimpy/blob/master/examples/voyager.ipynb) for an overview.
 
-From the python, ipython or jupiter notebook environments.
+From Python, IPython, or Jupyter Notebook:
 
 ```python
 from blimpy import Waterfall
@@ -121,4 +121,4 @@ Here is a [more complete guide](./docker_guide.md) on using blimpy in Docker.
 
 A detailed overview of the data formats used in Breakthrough Listen can be found in our [data format paper](https://ui.adsabs.harvard.edu/abs/2019arXiv190607391L/abstract). An archive of data files from the Breakthrough Listen program is provided at [seti.berkeley.edu/opendata](http://seti.berkeley.edu/opendata).
 
-### If you have any requests or questions, please lets us know!
+### If you have any requests or questions, please let us know!
