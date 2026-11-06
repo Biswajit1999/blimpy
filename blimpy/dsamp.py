@@ -21,7 +21,9 @@ logging.basicConfig(format=FMT, stream=sys.stdout, level = logging.INFO)
 
 # Blimpy functions required:
 from blimpy import Waterfall
-from blimpy.io.hdf_writer import __write_to_hdf5_heavy as write_to_h5
+# Downsampling has already materialized a new in-memory array and updated the header.
+# Never re-read the original (non-downsampled) container through the heavy writer.
+from blimpy.io.hdf_writer import __write_to_hdf5_light as write_to_h5
 from blimpy.io.fil_writer import write_to_fil
 
 
